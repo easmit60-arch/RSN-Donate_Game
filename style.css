@@ -93,6 +93,21 @@ p {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
+}
+
+.drop {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-image: url("RSN.img/Cash.gif");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  pointer-events: none;
+  filter: drop-shadow(0 0 8px rgba(0, 217, 255, 0.7)) drop-shadow(0 0 12px rgba(255, 0, 110, 0.4));
+}
+
+section {
   width: 100%;
   margin: 2rem auto;
 }

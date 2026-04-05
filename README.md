@@ -1,4 +1,4 @@
-# RSN-Donate_Game Refections
+# RSN-Donate_Game: Rouge Support Network Runner
 Reflect on your experience and prepare for job interviews and professional networking by answering all the questions below.
     -Challenge / twist mechanics:
     -Flood loss condition if score goes above 135 (“The Club floods with dollars”).
@@ -10,46 +10,79 @@ In this build, I was not limited by time, so I was able to keep the original sco
 This project shows how I break a problem into smaller steps, test as I go, and keep iterating until the game feels clear and playable.
 Next time, I would playtest earlier so I can tune the difficulty faster, but I’m proud that I was able to ship a working prototype with polished feedback.
 
-  ## BlueSkys Post
-  Built a mini browser game prototype (Dollar Runner) with JavaScript + a little AI support, and I learned a lot about turning an idea into something actually playable. AI helped me move faster from “concept” to working code by brainstorming mechanics and debugging logic, but JavaScript is what made it feel like a real game—tracking score + stored dollars, spawning random dollar signs, and handling win/lose conditions.
+## Game Mechanics & Win/Lose Conditions
 
-Big takeaway: the fun isn’t just visuals—it’s balancing systems and giving the player clear feedback (HUD updates, status messages, and a win celebration). I also introduced a twist with an investment phase, where gameplay shifts and stored dollars begin to drain, adding time pressure. Next up, I want to keep iterating on difficulty, balance, and polish.
+### Game States
+- **Start:** Age verification, difficulty selection, game introduction
+- **Playing:** Active gameplay—collect cash, manage score, bank resources
+- **Investment:** Triggered at score ≥ 25—transform to flourish phase with drain mechanics
+- **Flourish:** Post-investment survival phase (30s timer on Normal)
+- **Lost:** Market crash (score ≥ 135) or flourish failure without win conditions met
+- **Won:** All win conditions achieved with celebration (confetti, victory overlay)
 
-If you’re curious, I’ll share a short clip/screenshot in the comments (or check out the project on GitHub).
+### Loss Conditions (Immediate)
+1. **Market Crash:** Score exceeds 135 at any time
+   - Message: `"You lost: pressure spiked above 135."`
+   - Without investment: `"You lost: no investment was made before score 135."`
 
-## Project File Alignment
+2. **Flourish Failure:** Timer expires without meeting win requirements
+   - Message: `"You lost: flourish timer reached 0s before full bank was reached."`
 
--Primary playable game (Prompt 8 mechanics): index.html
--Styling: style.css
--Prompt guide text (all prompts): README.md
--Development container config: devcontainer.json
--Game assets and images: RSN.img/ (Cash.gif, RSN(Logo).webp, WWAD.gif, stock-neon-silhouette.jpg, Sex_Worker_Social.gif)
--Legacy starter files from the earlier grid game were removed to keep the project focused on the active build.
+### Win Conditions (All 4 Required)
+1. ✅ **Investment Made:** Press D to unlock investment phase
+2. ✅ **Score < 135:** Maintain risk below crash threshold
+3. ✅ **Max Banked Cash:** Reach 100 cash in bank at least once
+4. ✅ **Flourish Survival:** Survive 30 seconds after investment
 
-## Prompt 1: Theme + Mechanics Planning
+### Difficulty Levels
+| Level | Crash Threshold | Flourish Timer | Max Bank |
+|-------|-----------------|----------------|-----------|
+| Easy | 150 | 35s | 90 |
+| Normal | 135 | 30s | 100 |
+| Hard | 120 | 24s | 110 |
 
-### Goal
-Create a Snake-like game using HTML, CSS, and JavaScript that can be used interchangably in where:
--The snake is a flowing money stream
--The player collects falling dollar signs
--Money is stored in The Club
+### Core Game Loop
+1. **Collect Cash:** Move with arrow keys, gather falling cash drops
+2. **Track Score:** Each drop increments score; triggers investment unlock at 25
+3. **Bank Resources:** Press S to deposit cash into Club bank (capacity 100)
+4. **Invest:** Press D to unlock flourish phase (requires 25+ banked cash)
+5. **Flourish:** Survive timer while managing cash drain and score risk
+6. **Outcome:** Win (confetti) or lose (crash message)
 
-### Key Considerations
--Define the core loop: move, collect, store, survive
--Use a clear capacity (for example, 135) tied to the flood-loss condition
--Add HUD info: score, stored dollars, capacity
--Choose boundary behavior: wrap-around or wall collision
--Add start/playing/investment/flourish/lose game states
--Prevent dollar signs from spawning inside the player’s path
--Age limit of 13
+### Key Mechanics
+- **Cash Drops:** Randomly spawn falling Cash.gif animations with neon glow effects
+- **Cash Drain:** After investment, banked cash decreases over time (~2/sec)
+- **Risk Management:** Higher score = higher pressure; avoid exceeding 135
+- **Resource Pressure:** Balancing collection, banking, and drain to reach win state
 
-### Prompt 1 (Copy/Paste)
-```text
-I want to create a simple Snake-like game using HTML, CSS, and JavaScript. I want the snake to represent a flowing money stream, and the player collects falling dollar signs and stores them in The Club.
+## Project File Structure
 
-Please suggest key considerations and gameplay mechanics for:
-- Core loop
-- Difficulty progression
-- HUD design
-- Win/lose states
-```
+- **index.html** — Main game engine, UI, inline styles, and JavaScript logic
+- **style.css** — Global page styling (neon theme, cards, responsive layout)
+- **devcontainer.json** — Development container configuration
+- **RSN.img/** — Game assets folder
+  - Cash.gif (start button animation)
+  - RSN(Logo).webp (brand logo)
+  - stock-neon-silhouette.jpg (club background)
+  - Sex_Worker_Social.gif (investment celebration GIF)
+  - WWAD.gif (market crash overlay GIF)
+- **README.md** — This file (project documentation, reflections, mechanics)
+
+### Key Implementation Details
+- **Canvas Rendering:** 440×440px game board with real-time graphics updates
+- **GIF Overlays:** HTML `<img>` elements positioned absolutely over canvas for native animation
+- **Responsive Design:** Mobile-friendly layout with clamp() sizing
+- **Age Verification:** Browser `prompt()` with localStorage persistence (min age 13)
+- **Audio:** Procedural sound effects (beep/boop) using Web Audio API
+- **Difficulty System:** Three preset modes (Easy/Normal/Hard) with balanced parameters
+
+## Design Intent & Thematic Depth
+
+The mechanical choices reflect systems thinking:
+- **Flooding (score ≥ 135)** represents market collapse from unsustainable growth
+- **Investment phase** transforms gameplay: resources drain, time tightens—risk shifts, not vanishes
+- **Banking & drought cycles** mirror resource scarcity in precarious economies
+- **The 30-second flourish** embodies survival under pressure
+
+This isn't a game about winning "more"—it's about navigating constraints and understanding when systems break. The neon aesthetic masks the darker economic realities sex workers navigate daily. By choosing to bank, invest, and survive rather than accumulate endlessly, players experience a small taste of economic decision-making under duress.
+
