@@ -811,11 +811,11 @@ function drawDrops() {
   // Clear existing drop elements
   dropsContainer.innerHTML = '';
   
-  // Render each drop as an HTML img element
+  // Render each drop as a neon-green dollar symbol.
   for (let i = 0; i < game.drops.length; i++) {
     const drop = game.drops[i];
-    const dropEl = document.createElement('img');
-    dropEl.src = 'RSN.img/Cash.gif';
+    const dropEl = document.createElement('span');
+    dropEl.textContent = '$';
     dropEl.className = 'drop';
     dropEl.style.left = (drop.x - 20) + 'px';
     dropEl.style.top = (drop.y - 20) + 'px';
