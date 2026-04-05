@@ -3,10 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Water Runner</title>
+  <title>Rouge Support Network Runner</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
   <style>
   html, body {
     height: 100%;
@@ -348,12 +349,12 @@
     <a href="index.html">Game</a>
     <a href="README.md">Prompt Guide (README)</a>
   </nav>
-  <div id="topBar">
-    <div id="brand">
-      <a href="https://www.charitywater.org/donate" target="_blank" rel="noopener noreferrer" aria-label="Donate to charity: water">
-        <img src="Water game/img/cw_logo_horizontal.png" alt="charity: water logo">
+  <div id="topBar" class="logo-image">
+    <div id="brand" class="logo">
+      <a id="upper-logo" href="https://rougesupportnetwork.org/" target="_blank" rel="noopener noreferrer" aria-label="Visit Rouge Support Network">
+        <img src="https://images.squarespace-cdn.com/content/v1/59210e229f745601896d0cdd/386489bc-7a48-4543-ad4b-746e0c05b521/Copy+of+Red+Lipstick+Support+%28Facebook+Cover%29+%283%29.jpg?format=1500w" alt="Rouge Support Network">
       </a>
-      <a id="brandText" href="https://www.charitywater.org/donate" target="_blank" rel="noopener noreferrer">Water Runner</a>
+      <a id="brandText" class="lower-logo" href="https://rougesupportnetwork.org/" target="_blank" rel="noopener noreferrer">Rouge Support Network</a>
     </div>
   </div>
   <div id="hud">
@@ -387,7 +388,7 @@
   <div id="boardWrap">
     <canvas width="440" height="440" id="game"></canvas>
     <button id="startBtn" type="button" aria-label="Start game">
-      <img src="Water game/img/water-can.png" alt="Start Water Runner">
+      <img src="Water game/img/water-can.png" alt="Start Rouge Support Network Runner">
     </button>
   </div>
   <p id="status"></p>
@@ -398,9 +399,9 @@
   </div>
   <button id="playAgainBtn" type="button" class="hidden">Play Again</button>
   <footer id="cwFooter">
-    <span>Learn more and support clean water projects:</span>
-    <a href="https://www.charitywater.org" target="_blank" rel="noopener noreferrer">charity: water Website</a>
-    <a href="https://www.charitywater.org/donate" target="_blank" rel="noopener noreferrer">Donate</a>
+    <span>Learn more and support Rouge Support Network:</span>
+    <a href="https://rougesupportnetwork.org/" target="_blank" rel="noopener noreferrer">Rouge Support Network Website</a>
+    <a href="https://rougesupportnetwork.org/" target="_blank" rel="noopener noreferrer">Support</a>
   </footer>
 </div>
 <script>
@@ -442,7 +443,7 @@ const COPY = {
     return 'Flourish ' + remainingSeconds + 's left | ' + storageGoal + ' | keep score under ' + floodScore + '.';
   },
   agePrompt: function(minAge) {
-    return 'Enter your age to play Water Runner. You must be at least ' + minAge + '.';
+    return 'Enter your age to play Rouge Support Network Runner. You must be at least ' + minAge + '.';
   },
   ageInvalid: 'Please enter a valid whole-number age to continue.',
   ageDenied: function(minAge) {
@@ -1300,7 +1301,7 @@ function loop() {
 
   if (game.state === 'start') {
     drawBoard();
-    drawOverlay('Water Runner');
+    drawOverlay('Rouge Support Network Runner');
     return;
   }
 
